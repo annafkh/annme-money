@@ -60,6 +60,16 @@
                     Perbarui Profil
                 </button>
             </div>
+            <form action="{{ route('profile.destroy') }}" method="POST" class="mt-6">
+                @csrf
+                @method('DELETE')
+            
+                <button type="submit" onclick="return confirm('Yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.')"
+                        class="text-red-600 hover:underline text-sm">
+                    Hapus Akun
+                </button>
+            </form>
+            
         </form>
     </div>
 </div>
