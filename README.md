@@ -1,3 +1,56 @@
+# 💸 Personal Finance Manager
+
+Aplikasi manajemen keuangan pribadi berbasis Laravel yang responsif dan mobile-friendly. Dirancang untuk membantu pengguna mencatat pemasukan, pengeluaran, serta mengelola tujuan keuangan secara efisien dan praktis.
+
+---
+
+## ✨ Fitur Utama
+
+- 👤 Autentikasi: Login, Register, dan Profil pengguna
+- 📥 Pencatatan transaksi pemasukan & pengeluaran
+- 🎯 Manajemen goals/tujuan keuangan
+- 📊 Ringkasan grafik pemasukan vs pengeluaran (Chart.js)
+- 🧭 Bottom navigation ala mobile apps
+- 📱 Desain UI/UX responsif untuk web & mobile
+- 🔒 Logout & keamanan sesi
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+- Laravel 12
+- Blade Templating
+- Tailwind CSS
+- Chart.js
+- MySQL
+
+---
+
+## ⚙️ Instalasi & Setup
+
+```bash
+# Clone repository
+git clone https://github.com/annafkh/annme-money
+cd annme-money
+
+# Install dependency Laravel
+composer install
+
+# Copy file environment
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+
+# Setup database
+# Ubah DB_DATABASE, DB_USERNAME, DB_PASSWORD di file .env
+php artisan migrate
+
+# Jalankan aplikasi
+php artisan serve
+
+```
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
