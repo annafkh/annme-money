@@ -69,8 +69,10 @@
         <div class="space-y-2">
             <label class="text-sm text-gray-600">Dari</label>
             <input type="date" name="from_date" value="{{ request('from_date') }}" class="w-full px-3 py-2 border rounded-lg text-sm">
+            <br><br>
             <label class="text-sm text-gray-600">Sampai</label>
             <input type="date" name="to_date" value="{{ request('to_date') }}" class="w-full px-3 py-2 border rounded-lg text-sm">
+            <br><br>
             <label class="text-sm text-gray-600">Keyword</label>
             <input type="text" name="keyword" value="{{ request('keyword') }}" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="Cari: Gaji, Makan, dll">
         </div>
