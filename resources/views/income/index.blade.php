@@ -6,9 +6,9 @@
     <!-- Header -->
     <h1 class="text-3xl font-bold mb-6 text-green-600 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20,15c.552,0,1,.448,1,1s-.448,1-1,1-1-.448-1-1,.448-1,1-1Zm3.665-5.75c-.139-.24-.447-.322-.683-.183-.239,.138-.321,.444-.183,.683,.131,.227,.2,.486,.2,.75v11c0,.827-.673,1.5-1.5,1.5H4.5c-1.93,0-3.5-1.57-3.5-3.5V8.5c0-.349,.067-.679,.162-.997,.845,.935,2.053,1.497,3.338,1.497H15c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5H4.5c-1.145,0-2.214-.571-2.864-1.5,.633-.904,1.679-1.5,2.864-1.5H13.5c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5H4.5c-2.498-.004-4.482,2.074-4.5,4.5v11c0,2.481,2.019,4.5,4.5,4.5H21.5c1.379,0,2.5-1.121,2.5-2.5V10.5c0-.439-.116-.872-.335-1.25Zm-5.245-.695c.585,.563,1.528,.562,2.114,.007l2.812-2.701c.199-.191,.205-.508,.014-.707-.191-.2-.507-.204-.707-.015l-2.653,2.549V.5c0-.276-.224-.5-.5-.5s-.5,.224-.5,.5V7.724l-2.651-2.582c-.195-.191-.512-.188-.707,.01-.192,.198-.188,.514,.01,.707l2.769,2.696Z" />
         </svg>
-        Pemasukan Kamu
+        Pemasukan
     </h1>
 
     <!-- Add Button -->
@@ -51,7 +51,7 @@
                     <div class="flex justify-end items-center space-x-2 mt-4">
                         <form action="{{ route('income.edit', $income->id) }}" method="GET">
                             <button type="submit"
-                                class="px-3 py-1 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+                                class="px-3 py-1 text-sm text-white bg-yellow-500 rounded-lg hover:bg-yellow-600">
                                 Edit
                             </button>
                         </form>

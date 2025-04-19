@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Income;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class IncomeController extends Controller
 {
@@ -15,7 +16,8 @@ class IncomeController extends Controller
 
     public function create()
     {
-        return view('income.create');
+        $categories = Category::where('user_id', Auth::id())->where('type', 'income')->get();
+        return view('income.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -24,6 +26,7 @@ class IncomeController extends Controller
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'date' => 'required|date',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         Income::create([
@@ -31,6 +34,7 @@ class IncomeController extends Controller
             'title' => $request->title,
             'amount' => $request->amount,
             'date' => $request->date,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('income.index')->with('success', 'Pemasukan ditambahkan!');
@@ -42,7 +46,8 @@ class IncomeController extends Controller
             abort(403, 'Akses ditolak.');
         }
         $income->date = \Carbon\Carbon::parse($income->date);
-        return view('income.edit', compact('income'));
+        $categories = Category::where('user_id', Auth::id())->where('type', 'expense')->get();
+        return view('expense.create', compact('categories'));
     }
 
     public function update(Request $request, Income $income)
@@ -55,9 +60,10 @@ class IncomeController extends Controller
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'date' => 'required|date',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        $income->update($request->only('title', 'amount', 'date'));
+        $income->update($request->only('title', 'amount', 'date','category_id',));
 
         return redirect()->route('income.index')->with('success', 'Pemasukan diperbarui!');
     }

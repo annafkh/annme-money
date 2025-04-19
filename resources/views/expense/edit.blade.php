@@ -24,7 +24,7 @@
         <!-- Input Jumlah -->
         <div>
             <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Jumlah (Rp)</label>
-            <input type="number" name="amount" id="amount" value="{{ old('amount', $expense->amount) }}"
+            <input type="text" name="amount" id="amount" value="{{ old('amount', number_format($expense->amount, 0, ',', '.')) }}"
                    class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-400" required>
         </div>
     
@@ -34,6 +34,18 @@
             <input type="date" name="date" id="date" value="{{ old('date', $expense->date->toDateString()) }}" 
                    class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer" required>
         </div>
+        
+        <!-- Select Kategori -->
+        <div>
+            <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+            <select name="category_id" id="category_id"
+                class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400">
+                <option value="">Pilih Kategori</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
     
         <!-- Tombol Simpan -->
         <button type="submit"
@@ -42,4 +54,38 @@
         </button>
     </div>    
 </form>
+
+<script>
+    const amountInput = document.getElementById('amount');
+
+    // Function to format input as Rupiah
+    function formatRupiah(angka, prefix = 'Rp ') {
+        let number_string = angka.replace(/[^,\d]/g, '').toString();
+        let split = number_string.split(',');
+        let sisa = split[0].length % 3;
+        let rupiah = split[0].substr(0, sisa);
+        let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+        
+        // Add separator
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        // Add decimal part if exists
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        
+        return prefix + rupiah;
+    }
+
+    amountInput.addEventListener('keyup', function(e) {
+        e.target.value = formatRupiah(this.value);
+    });
+
+    // Set initial value to formatted Rupiah if there's any preset value
+    if (amountInput.value) {
+        amountInput.value = formatRupiah(amountInput.value);
+    }
+</script>
+
 @endsection

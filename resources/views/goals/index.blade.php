@@ -10,14 +10,14 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
         </svg>
-        Goals Kamu
+        Goals
     </h1>
     
     <!-- Header -->
     @if (!$goals->isEmpty())
     <div class="flex justify-between items-center mb-4">
         <a href="{{ route('goals.create') }}"
-           class="bg-teal-600 text-white px-4 py-2 rounded-xl hover:bg-teal-700 transition duration-300">
+           class="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition duration-300">
             + Tambah
         </a>
     </div>
@@ -76,7 +76,7 @@
             <div class="flex justify-end items-center space-x-2 mt-4">
                 <form action="{{ route('goals.edit', $goal->id) }}" method="GET">
                     <button type="submit"
-                        class="px-3 py-1 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+                                class="px-3 py-1 text-sm text-white bg-yellow-500 rounded-lg hover:bg-yellow-600">
                         Edit
                     </button>
                 </form>
@@ -100,13 +100,50 @@
                 @method('PUT')
                 <div class="mb-4">
                     <label for="progress_update" class="block text-sm font-medium text-gray-700">Progress</label>
-                    <input type="number" name="progress_update" id="progress_update" value="0"
-                           class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300" min="1" required>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-500 text-sm">Rp</span>
+                        <input type="text" name="progress_update" id="progress_update" placeholder=""
+                               class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                               onkeyup="formatCurrencyInput(this);" data-inputmask="'alias': 'numeric', 'groupSeparator': '.', 'radixPoint': ',', 'prefix': '', 'digits': 0, 'autoGroup': true, 'digitsOptional': false, 'rightAlign': false">
+                    </div>
+                    <p class="mt-1 text-xs text-gray-500">Masukkan nominal tanpa titik atau koma.</p>
                 </div>
                 <button type="submit" class="bg-teal-600 text-white py-2 px-6 rounded-xl hover:bg-teal-700 transition duration-300">
                     Update Progress
                 </button>
             </form>
+
+            <script>
+                function formatCurrencyInput(input) {
+                    let value = input.value.replace(/\D/g, '');
+                    input.value = formatRupiah(value);
+                }
+
+                function formatRupiah(angka) {
+                    const number_string = angka.replace(/[^,\d]/g, '').toString();
+                    const split = number_string.split(',');
+                    const sisa = split[0].length % 3;
+                    let rupiah = split[0].substr(0, sisa);
+                    const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    if (ribuan) {
+                        const separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    return rupiah;
+                }
+                document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const input = form.querySelector('input[name="progress_update"]');
+                if (input) {
+                    input.value = input.value.replace(/\D/g, ''); // hanya angka
+                }
+            });
+        });
+    });
+            </script>
             @endif
         </div>
         @endforeach

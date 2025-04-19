@@ -15,11 +15,24 @@
                 <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random&color=fff" alt="Avatar" class="w-12 h-12 rounded-full shadow">
             </button>
             <div id="avatarMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
-                </form>
+                <a href="{{ route('profile.edit') }}" 
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Profile
+             </a>
+             
+             <a href="{{ route('categories.index') }}" 
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('categories.*') ? 'bg-gray-100 font-semibold' : '' }}">
+                Kategori
+             </a>
+             
+             <form method="POST" action="{{ route('logout') }}">
+                 @csrf
+                 <button type="submit" 
+                         class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                     Logout
+                 </button>
+             </form>
+             
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return redirect('/dashboard');
@@ -19,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/income/{id}/edit', [IncomeController::class, 'edit'])->name('income.edit');
     Route::resource('/expense', ExpenseController::class);
     Route::resource('/goals', GoalController::class);
+    Route::resource('categories', CategoryController::class);
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

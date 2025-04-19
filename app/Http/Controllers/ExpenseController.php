@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class ExpenseController extends Controller
 {
@@ -16,7 +17,8 @@ class ExpenseController extends Controller
 
     public function create()
     {
-        return view('expense.create');
+        $categories = Category::where('user_id', Auth::id())->where('type', 'expense')->get();
+        return view('expense.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -25,6 +27,7 @@ class ExpenseController extends Controller
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'date' => 'required|date',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         Expense::create([
@@ -32,6 +35,7 @@ class ExpenseController extends Controller
             'title' => $request->title,
             'amount' => $request->amount,
             'date' => $request->date,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('expense.index')->with('success', 'Pengeluaran ditambahkan!');
@@ -43,7 +47,8 @@ class ExpenseController extends Controller
             abort(403, 'Akses ditolak.');
         }
         $expense->date = \Carbon\Carbon::parse($expense->date);
-        return view('expense.edit', compact('expense'));
+        $categories = Category::where('user_id', Auth::id())->where('type', 'expense')->get();
+        return view('expense.create', compact('categories'));
     }
 
     public function update(Request $request, Expense $expense)
@@ -56,9 +61,10 @@ class ExpenseController extends Controller
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'date' => 'required|date',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        $expense->update($request->only('title', 'amount', 'date'));
+        $expense->update($request->only('title', 'amount', 'date','category_id',));
 
         return redirect()->route('expense.index')->with('success', 'Pengeluaran diperbarui!');
     }
