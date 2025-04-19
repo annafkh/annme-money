@@ -19,7 +19,6 @@ Aplikasi manajemen keuangan pribadi berbasis Laravel yang responsif dan mobile-f
 ## 🛠️ Teknologi yang Digunakan
 
 - Laravel 12
-- Blade Templating
 - Tailwind CSS
 - Chart.js
 - MySQL
