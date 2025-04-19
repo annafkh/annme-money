@@ -1,29 +1,29 @@
 <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md border-t z-50">
-    <div class="flex justify-around items-center py-2">
+    <div class="flex justify-around items-center py-7">
         <a href="{{ route('dashboard') }}" class="flex flex-col items-center {{ request()->routeIs('dashboard') ? 'text-blue-600' : 'text-gray-400' }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 -mt-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z" />
             </svg>
             <span class="text-xs">Beranda</span>
         </a>
 
-        <a href="{{ route('income.index') }}" class="flex flex-col items-center {{ request()->routeIs('income.*') ? 'text-blue-600' : 'text-gray-400' }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm1 13h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+        <a href="{{ route('income.index') }}" class="flex flex-col items-center {{ request()->routeIs('income.*') ? 'text-green-600' : 'text-gray-400' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 -mt-6 mb-1" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 11H11V6l-5 6 5 6v-5h10v-2zM3 4h18a1 1 0 0 1 1 1v2h-2V6H4v12h16v-1h2v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/>
             </svg>
             <span class="text-xs">Pemasukan</span>
         </a>
 
-        <a href="{{ route('expense.index') }}" class="flex flex-col items-center {{ request()->routeIs('expense.*') ? 'text-blue-600' : 'text-gray-400' }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4 4h16v2H4zm0 5h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+        <a href="{{ route('expense.index') }}" class="flex flex-col items-center {{ request()->routeIs('expense.*') ? 'text-red-600' : 'text-gray-400' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 -mt-6 mb-1" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 13h10v5l5-6-5-6v5H3v2zm18-9H3a1 1 0 0 0-1 1v2h2V6h16v12H4v-1H2v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/>
             </svg>
             <span class="text-xs">Pengeluaran</span>
         </a>
 
         <a href="{{ route('goals.index') }}" class="flex flex-col items-center {{ request()->routeIs('goals.*') ? 'text-blue-600' : 'text-gray-400' }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 -mt-6 mb-1" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 3v18h18v-2H5V3H3zm15.59 3.58L13 12.17l-3.29-3.3-4.3 4.3 1.42 1.42L10 11.41l3.29 3.3 5.3-5.29z"/>
             </svg>
             <span class="text-xs">Goals</span>
         </a>
