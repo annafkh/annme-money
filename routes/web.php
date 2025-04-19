@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Define resource for income, expense, and goals
     Route::resource('/income', IncomeController::class);
+    Route::get('/income/{id}/edit', [IncomeController::class, 'edit'])->name('income.edit');
     Route::resource('/expense', ExpenseController::class);
     Route::resource('/goals', GoalController::class);
 

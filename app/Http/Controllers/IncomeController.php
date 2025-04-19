@@ -38,13 +38,18 @@ class IncomeController extends Controller
 
     public function edit(Income $income)
     {
-        $this->authorize('update', $income);
+        if ($income->user_id !== Auth::id()) {
+            abort(403, 'Akses ditolak.');
+        }
+        $income->date = \Carbon\Carbon::parse($income->date);
         return view('income.edit', compact('income'));
     }
 
     public function update(Request $request, Income $income)
     {
-        $this->authorize('update', $income);
+        if ($income->user_id !== Auth::id()) {
+            abort(403, 'Akses ditolak.');
+        }
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -59,7 +64,9 @@ class IncomeController extends Controller
 
     public function destroy(Income $income)
     {
-        $this->authorize('delete', $income);
+        if ($income->user_id !== Auth::id()) {
+            abort(403, 'Akses ditolak.');
+        }
         $income->delete();
 
         return redirect()->route('income.index')->with('success', 'Pemasukan dihapus!');

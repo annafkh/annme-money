@@ -56,7 +56,7 @@ class DashboardController extends Controller
             return $item;
         });
 
-        $recentTransactions = $recentIncome->merge($recentExpense)->sortByDesc('created_at')->take(5);
+        $recentTransactions = $recentIncome->concat($recentExpense)->sortByDesc('date');
 
         return view('dashboard', compact(
             'balance',

@@ -39,13 +39,18 @@ class ExpenseController extends Controller
 
     public function edit(Expense $expense)
     {
-        $this->authorize('update', $expense);
+        if ($expense->user_id !== Auth::id()) {
+            abort(403, 'Akses ditolak.');
+        }
+        $expense->date = \Carbon\Carbon::parse($expense->date);
         return view('expense.edit', compact('expense'));
     }
 
     public function update(Request $request, Expense $expense)
     {
-        $this->authorize('update', $expense);
+        if ($expense->user_id !== Auth::id()) {
+            abort(403, 'Akses ditolak.');
+        }
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -60,7 +65,9 @@ class ExpenseController extends Controller
 
     public function destroy(Expense $expense)
     {
-        $this->authorize('delete', $expense);
+        if ($expense->user_id !== Auth::id()) {
+            abort(403, 'Akses ditolak.');
+        }
         $expense->delete();
 
         return redirect()->route('expense.index')->with('success', 'Pengeluaran dihapus!');

@@ -91,29 +91,37 @@
         </button>
     </form>
 
-    <!-- List Transaksi -->
-    <div class="space-y-3 mt-6">
-        @forelse ($recentTransactions as $trx)
-            <div class="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center hover:shadow-md transition">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 rounded-full {{ $trx->type === 'income' ? 'bg-green-100' : 'bg-red-100' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 {{ $trx->type === 'income' ? 'text-green-600' : 'text-red-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path d="{{ $trx->type === 'income' ? 'M12 4v16m8-8H4' : 'M18 12H6' }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-medium text-gray-800">{{ $trx->description }}</p>
-                        <p class="text-xs text-gray-500">{{ $trx->created_at->format('d M Y') }}</p>
-                    </div>
+<!-- List Transaksi -->
+<div class="space-y-3 mt-6">
+    @foreach ($recentTransactions as $trx)
+        <div class="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center hover:shadow-md transition">
+            <div class="flex items-center gap-3">
+                <div class="p-2 rounded-full {{ $trx->type === 'income' ? 'bg-green-100' : 'bg-red-100' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 {{ $trx->type === 'income' ? 'text-green-600' : 'text-red-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="{{ $trx->type === 'income' ? 'M23.85,.15c-.2-.2-.51-.2-.71,0L1.42,21.88c-.26-.4-.42-.87-.42-1.38V10.5c0-.28-.22-.5-.5-.5s-.5,.22-.5,.5v10c0,1.93,1.57,3.5,3.5,3.5H13.5c.28,0,.5-.22,.5-.5s-.22-.5-.5-.5H3.5c-.51,0-.98-.15-1.38-.42L23.85,.85c.2-.2,.2-.51,0-.71Z' : 
+                        'M20.5,0H10.5c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h10c.509,0,.982,.153,1.378,.415L.146,23.146c-.195,.195-.195,.512,0,.707,.098,.098,.226,.146,.354,.146s.256-.049,.354-.146L22.585,2.122c.262,.395,.415,.869,.415,1.378V13.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5V3.5c0-1.93-1.57-3.5-3.5-3.5Z' }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </div>
-                <p class="{{ $trx->type === 'income' ? 'text-green-600' : 'text-red-500' }} font-semibold">
+                <div>
+                    <p class="font-medium text-gray-800 text-sm">{{ $trx->title }}</p>
+                    <p class="text-xs text-gray-500">{{ $trx->created_at->format('d M Y') }}</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-sm text-gray-500">{{ $trx->description }}</p>
+                <p class="{{ $trx->type === 'income' ? 'text-green-600' : 'text-red-500' }} font-semibold text-sm">
                     {{ $trx->type === 'income' ? '+' : '-' }}Rp {{ number_format($trx->amount, 0, ',', '.') }}
                 </p>
+                <p class="text-xs text-gray-400">{{ $trx->created_at->format('d M Y') }}</p>
             </div>
-        @empty
-            <p class="text-center text-gray-400 mt-10">Belum ada transaksi 😅</p>
-        @endforelse
-    </div>
+        </div>
+    @endforeach
+
+    @if ($recentTransactions->isEmpty())
+        <p class="text-center text-gray-400 mt-10">Belum ada transaksi 😅</p>
+    @endif
+</div>
+
 
 </div>
 
