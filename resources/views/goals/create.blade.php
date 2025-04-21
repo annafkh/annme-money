@@ -4,10 +4,15 @@
 @section('content')
 <div class="px-4 py-6 bg-gray-50 min-h-screen">
     <h1 class="text-3xl font-bold mb-6 text-teal-700">➕ Tambah Goal Baru</h1>
-
+    <a href="{{ route('goals.index') }}"
+   class="inline-flex items-center text-gray-600 hover:text-gray-800 font-medium bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-xl shadow transition duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    Kembali
+    </a><br><br>
     <form action="{{ route('goals.store') }}" method="POST" class="bg-white p-6 rounded-2xl shadow-md space-y-5" onsubmit="formatAndSubmit()">
         @csrf
-
         <div>
             <label for="title" class="block text-sm font-semibold text-gray-700 mb-1">Judul Goal</label>
             <input type="text" name="title" id="title"
