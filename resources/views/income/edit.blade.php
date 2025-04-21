@@ -8,13 +8,14 @@
     </svg>
     Edit Pemasukan
 </h1>
-<a href="{{ route('income.index') }}"
-class="inline-flex items-center text-gray-600 hover:text-gray-800 font-medium bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-xl shadow transition duration-300">
- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
- </svg>
- Kembali
- </a>
+<a href="{{ route('income.index') }}" class="inline-flex items-center text-sm text-teal-600 hover:underline mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    Kembali
+</a>
 <form action="{{ route('income.update', $income->id) }}" method="POST" class="space-y-4">
     @csrf
     @method('PUT')
