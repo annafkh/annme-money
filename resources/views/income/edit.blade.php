@@ -41,9 +41,12 @@
             <select name="category_id" id="category_id"
                 class="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400">
                 <option value="">Pilih Kategori</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}"
+                    {{ old('category_id', $income->category_id) == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach            
             </select>
         </div>
     

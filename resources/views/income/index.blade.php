@@ -39,7 +39,7 @@
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
                             <h2 class="text-xl font-semibold text-gray-800">{{ $income->title }}</h2>
-                            <p class="text-sm text-gray-500 mt-1">{{ $income->description ?? '-' }}</p>
+                            <p class="text-sm text-gray-500 mt-1">{{ optional($income->category)->name ?? '-' }}</p>
                         </div>
                         <div class="ml-4">
                             <p class="text-sm text-gray-400">{{ $income->date }}</p>

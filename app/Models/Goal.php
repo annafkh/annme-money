@@ -10,5 +10,8 @@ class Goal extends Model
     protected $fillable = [
         'title', 'description', 'target', 'progress', 'user_id',
     ];
-
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }    
 }

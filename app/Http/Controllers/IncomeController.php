@@ -22,13 +22,19 @@ class IncomeController extends Controller
 
     public function store(Request $request)
     {
+        $cleanAmount = preg_replace('/[^\d]/', '', $request->amount);
+    
+        $request->merge([
+            'amount' => $cleanAmount
+        ]);
+    
         $request->validate([
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'date' => 'required|date',
             'category_id' => 'nullable|exists:categories,id',
         ]);
-
+    
         Income::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
@@ -36,25 +42,32 @@ class IncomeController extends Controller
             'date' => $request->date,
             'category_id' => $request->category_id,
         ]);
-
+    
         return redirect()->route('income.index')->with('success', 'Pemasukan ditambahkan!');
-    }
+    }    
 
     public function edit(Income $income)
     {
         if ($income->user_id !== Auth::id()) {
             abort(403, 'Akses ditolak.');
         }
+    
         $income->date = \Carbon\Carbon::parse($income->date);
-        $categories = Category::where('user_id', Auth::id())->where('type', 'expense')->get();
-        return view('expense.create', compact('categories'));
-    }
+    
+        $categories = Category::where('user_id', Auth::id())->where('type', 'income')->get();
+        return view('income.edit', compact('income', 'categories'));
+    }    
 
     public function update(Request $request, Income $income)
     {
         if ($income->user_id !== Auth::id()) {
             abort(403, 'Akses ditolak.');
         }
+
+        $cleanAmount = preg_replace('/[^\d]/', '', $request->amount);
+        $request->merge([
+            'amount' => $cleanAmount
+        ]);
 
         $request->validate([
             'title' => 'required|string|max:255',

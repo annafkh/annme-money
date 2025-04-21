@@ -23,6 +23,11 @@ class ExpenseController extends Controller
 
     public function store(Request $request)
     {
+        $cleanAmount = preg_replace('/[^\d]/', '', $request->amount);
+
+        $request->merge([
+            'amount' => $cleanAmount
+        ]);
         $request->validate([
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',
@@ -48,7 +53,7 @@ class ExpenseController extends Controller
         }
         $expense->date = \Carbon\Carbon::parse($expense->date);
         $categories = Category::where('user_id', Auth::id())->where('type', 'expense')->get();
-        return view('expense.create', compact('categories'));
+        return view('expense.edit', compact('expense', 'categories'));
     }
 
     public function update(Request $request, Expense $expense)
@@ -57,6 +62,12 @@ class ExpenseController extends Controller
             abort(403, 'Akses ditolak.');
         }
 
+        $cleanAmount = preg_replace('/[^\d]/', '', $request->amount);
+
+        $request->merge([
+            'amount' => $cleanAmount
+        ]);
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric',

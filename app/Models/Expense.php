@@ -14,6 +14,7 @@ class Expense extends Model
         'title',
         'amount',
         'date',
+        'category_id',
     ];
     public function category()
     {

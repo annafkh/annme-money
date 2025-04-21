@@ -82,20 +82,65 @@ class GoalController extends Controller
         return redirect()->route('goals.index')->with('success', 'Goal berhasil dihapus!');
     }
 
-    public function updateProgress(Request $request, Goal $goal)
+    public function updateProgress(Request $request, $goalId)
     {
-        // Pastikan hanya goal milik user yang bisa diupdate progress-nya
-        if ($goal->user_id !== Auth::id()) {
-            abort(403, 'Akses ditolak.');
-        }
+        $goal = Goal::findOrFail($goalId);
 
-        $request->validate([
-            'progress_update' => 'required|integer|min:0',
+        $cleanAmount = preg_replace('/[^\d]/', '', $request->progress_update);
+        $progressToAdd = (int) $cleanAmount;
+
+        $request->merge([
+            'progress_update' => $progressToAdd
         ]);
 
-        // Increment progress goal
-        $goal->increment('progress', $request->progress_update);
+        $request->validate([
+            'progress_update' => 'required|numeric|min:0',
+        ]);
 
-        return redirect()->route('goals.index')->with('success', 'Progress berhasil ditambahkan!');
+        $newProgress = $goal->progress + $progressToAdd;
+
+        if ($newProgress > $goal->target) {
+            return redirect()->back()->with('error', 'Progress tidak boleh melebihi target.');
+        }
+
+        $goal->update([
+            'progress' => $newProgress,
+        ]);
+
+        \App\Models\Transaction::create([
+            'goal_id' => $goal->id,
+            'title' => 'Update Progress',
+            'amount' => $progressToAdd,
+            'date' => now(),
+        ]);
+
+        return redirect()->route('goals.show', $goal->id)->with('success', 'Progress berhasil diperbarui dan transaksi disimpan!');
+    }    
+
+    public function show($id)
+    {
+        $goal = Goal::findOrFail($id);
+        $transactions = $goal->transactions;
+
+        return view('goals.show', compact('goal', 'transactions'));
+    }
+
+    public function storeTransaction(Request $request, $goalId)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+            'date' => 'required|date',
+        ]);
+
+        $goal = Goal::findOrFail($goalId);
+
+        $goal->transactions()->create([
+            'title' => $request->title,
+            'amount' => $request->amount,
+            'date' => $request->date,
+        ]);
+
+        return redirect()->route('goals.show', $goal->id)->with('success', 'Transaksi berhasil ditambahkan!');
     }
 }

@@ -15,11 +15,12 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Define resource for income, expense, and goals
     Route::resource('/income', IncomeController::class);
     Route::get('/income/{id}/edit', [IncomeController::class, 'edit'])->name('income.edit');
     Route::resource('/expense', ExpenseController::class);
     Route::resource('/goals', GoalController::class);
+    Route::get('/goals/{goal}', [GoalController::class, 'show'])->name('goals.show');
+    Route::post('/goals/{goal}/transactions', [GoalController::class, 'storeTransaction'])->name('goals.storeTransaction');
     Route::resource('categories', CategoryController::class);
 
     // Profile routes
