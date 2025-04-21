@@ -80,19 +80,15 @@
             <p class="text-lg font-semibold">Belum ada transaksi 😢</p>
         </div>
         @else
-            @foreach ($transactions as $transaction)
-            <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300">
-                <div class="flex justify-between items-start">
-                    <div class="flex-1">
-                        <h3 class="text-lg font-semibold text-gray-800">{{ $transaction->title }}</h3>
-                        <p class="text-sm text-gray-500 mt-1">Tanggal: {{ $transaction->date }}</p>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-lg font-bold text-green-600">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</p>
-                    </div>
-                </div>
+        @foreach ($transactions as $transaction)
+        <div class="bg-white px-3 py-2 rounded-lg border border-gray-100 flex justify-between items-center text-xs">
+            <div>
+                <p class="text-gray-500">{{ $transaction->title }}</p>
+                <p class="text-[10px] text-gray-400 mt-0.5">{{ \Carbon\Carbon::parse($transaction->date)->translatedFormat('d M Y') }}</p>
             </div>
-            @endforeach
+            <p class="text-gray-400">Rp {{ number_format($transaction->amount, 0, ',', '.') }}</p>
+        </div>
+        @endforeach        
         @endif
     </div>
 
