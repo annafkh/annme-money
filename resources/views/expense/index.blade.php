@@ -12,12 +12,14 @@
     </h1>
 
     <!-- Add Button -->
+    @if($expenses->isNotEmpty())
     <div class="flex justify-end items-center mb-4">
         <a href="{{ route('expense.create') }}"
-        class="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition duration-300">
+           class="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition duration-300">
             + Tambah
         </a>
     </div>
+    @endif
 
     <!-- Expense List -->
     <div class="space-y-6">

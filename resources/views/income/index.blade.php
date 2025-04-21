@@ -12,12 +12,14 @@
     </h1>
 
     <!-- Add Button -->
+    @if($incomes->isNotEmpty())
     <div class="flex justify-end items-center mb-4">
         <a href="{{ route('income.create') }}"
            class="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition duration-300">
             + Tambah
         </a>
     </div>
+    @endif
 
     <!-- Income List -->
     <div class="space-y-6">
