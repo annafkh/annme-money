@@ -95,6 +95,16 @@
             <br><br>
             <label class="text-sm text-gray-600">Keyword</label>
             <input type="text" name="keyword" value="{{ request('keyword') }}" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="Cari: Gaji, Makan, dll">
+            <br><br>
+            <label class="text-sm text-gray-600">Kategori</label>
+            <select name="category_id" class="w-full px-3 py-2 border rounded-lg text-sm">
+                <option value="">Semua Kategori</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition">
             Terapkan Filter
