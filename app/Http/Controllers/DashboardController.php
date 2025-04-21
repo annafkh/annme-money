@@ -52,9 +52,8 @@ class DashboardController extends Controller
         // Ambil data kategori
         $categories = Category::all();
     
-        // Mengambil transaksi terbaru sesuai filter
-        $totalIncome = Income::where('user_id', $userId)->sum('amount');
-        $totalExpense = Expense::where('user_id', $userId)->sum('amount');
+        $totalIncome = $incomeQuery->sum('amount');
+        $totalExpense = $expenseQuery->sum('amount');        
         $balance = $totalIncome - $totalExpense;
     
         // Get recent transactions with filter applied
