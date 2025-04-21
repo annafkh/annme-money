@@ -44,38 +44,36 @@
     </div>
 
  <!-- Ringkasan Pemasukan & Pengeluaran -->
-<div class="grid grid-cols-2 gap-4 mb-6">
+ <div class="grid grid-cols-2 gap-4 mb-6">
     <!-- Pemasukan -->
-    <div class="bg-white p-4 rounded-2xl shadow-md flex items-center gap-3">
-        <div class="bg-green-100 p-3 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m4-4H8" />
-            </svg>
-        </div>
-        <div>
-            <h3 class="text-gray-500 text-xs sm:text-sm">Pemasukan</h3>
-            <p class="text-green-600 text-sm sm:text-lg font-bold">
-                +Rp {{ number_format($totalIncome, 0, ',', '.') }}
-            </p>
-        </div>
-    </div>
-
+    <a href="{{ route('income.index') }}"
+       class="block bg-white p-4 rounded-2xl shadow-md flex items-center gap-3 hover:shadow-lg transition cursor-pointer">
+      <div class="bg-green-100 p-3 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m4-4H8" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-gray-500 text-xs">Pemasukan</p>
+        <p class="text-green-600 text-sm font-bold">+Rp {{ number_format($totalIncome, 0, ',', '.') }}</p>
+      </div>
+    </a>
+  
     <!-- Pengeluaran -->
-    <div class="bg-white p-4 rounded-2xl shadow-md flex items-center gap-3">
-        <div class="bg-red-100 p-3 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
-            </svg>
-        </div>
-        <div>
-            <h3 class="text-gray-500 text-xs sm:text-sm">Pengeluaran</h3>
-            <p class="text-red-500 text-sm sm:text-lg font-bold">
-                -Rp {{ number_format($totalExpense, 0, ',', '.') }}
-            </p>
-        </div>
-    </div>
-</div>
-
+    <a href="{{ route('expense.index') }}"
+       class="block bg-white p-4 rounded-2xl shadow-md flex items-center gap-3 hover:shadow-lg transition cursor-pointer">
+      <div class="bg-red-100 p-3 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-gray-500 text-xs">Pengeluaran</p>
+        <p class="text-red-500 text-sm font-bold">-Rp {{ number_format($totalExpense, 0, ',', '.') }}</p>
+      </div>
+    </a>
+  </div>
+    
     <!-- Chart Ringkasan -->
     <div class="bg-white p-4 rounded-2xl shadow-md mb-6">
         <canvas id="summaryChart" height="120"></canvas>
