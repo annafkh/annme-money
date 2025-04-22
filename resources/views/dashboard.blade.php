@@ -56,11 +56,8 @@
  <div class="grid grid-cols-2 gap-4 mb-6">
     <!-- Pemasukan -->
     <a href="{{ route('income.index') }}"
-       class="block bg-white p-4 rounded-2xl shadow-md flex items-center gap-3 hover:shadow-lg transition cursor-pointer">
-      <div class="bg-green-100 p-3 rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m4-4H8" />
-        </svg>
+       class="block bg-white p-2 rounded-2xl shadow-md flex items-center gap-3 hover:shadow-lg transition cursor-pointer">
+      <div class="bg-green-100 p-2 rounded-full">
       </div>
       <div>
         <p class="text-gray-500 text-xs">Pemasukan</p>
@@ -70,11 +67,8 @@
   
     <!-- Pengeluaran -->
     <a href="{{ route('expense.index') }}"
-       class="block bg-white p-4 rounded-2xl shadow-md flex items-center gap-3 hover:shadow-lg transition cursor-pointer">
-      <div class="bg-red-100 p-3 rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
-        </svg>
+       class="block bg-white p-2 rounded-2xl shadow-md flex items-center gap-3 hover:shadow-lg transition cursor-pointer">
+      <div class="bg-red-100 p-2 rounded-full">
       </div>
       <div>
         <p class="text-gray-500 text-xs">Pengeluaran</p>
