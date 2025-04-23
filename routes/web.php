@@ -13,7 +13,7 @@ use App\Http\Controllers\GoogleController;
 
 Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'callback']);
-
+Route::get('/mobile/login', [GoogleController::class, 'login']);
 Route::get('/', function () {
     return redirect('/dashboard');
 });
@@ -40,18 +40,5 @@ Route::get('/', function () {
     
     // Route for updating progress of a goal
     Route::put('/goals/{goal}/update-progress', [GoalController::class, 'updateProgress'])->name('goals.updateProgress');
-});
-Route::get('/mobile/login', function (Request $request) {
-    $token = $request->query('token');
-
-    $accessToken = PersonalAccessToken::findToken($token);
-
-    if (! $accessToken) {
-        return redirect('/login')->with('error', 'Token tidak valid.');
-    }
-
-    Auth::login($accessToken->tokenable);
-
-    return redirect('/dashboard');
 });
 require __DIR__.'/auth.php';
