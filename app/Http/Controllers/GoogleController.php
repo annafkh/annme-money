@@ -1,38 +1,39 @@
 <?php
 namespace App\Http\Controllers;
 
+use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 
 class GoogleController extends Controller
 {
-    public function redirectToGoogle()
+    public function redirect()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function callback()
     {
         try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
+            $googleUser = Socialite::driver('google')->user();
 
-            $user = User::firstOrCreate(
-                ['email' => $googleUser->getEmail()],
-                [
+            $user = User::where('email', $googleUser->getEmail())->first();
+
+            if (!$user) {
+                $user = User::create([
                     'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
-                    'password' => bcrypt(Str::random(24)), // Random password karena Google login
-                    'email_verified_at' => now()
-                ]
-            );
+                    'google_id' => $googleUser->getId(),
+                    'password' => bcrypt(Str::random(16)),
+                ]);
+            }
 
             Auth::login($user);
 
-            return redirect('/dashboard'); // Ganti sesuai route kamu
+            return redirect()->route('dashboard');
         } catch (\Exception $e) {
-            return redirect('/login')->with('error', 'Gagal login menggunakan Google.');
+            return redirect()->route('login')->with('error', 'Gagal login dengan Google.');
         }
     }
 }
