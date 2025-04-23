@@ -77,7 +77,7 @@
       <span class="mx-4 text-gray-500 text-sm">Or sign in with</span>
       <hr class="flex-grow border-t border-gray-300">
     </div>
-  <a href="{{ url('auth/google') }}"
+  <a href="{{ route('auth.google') }}"
    class="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-lg px-4 py-2 shadow hover:bg-gray-50 w-full mt-4">
    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="h-5 w-5">
    Login with Google
