@@ -5,9 +5,26 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class GoogleController extends Controller
 {
+    public function login(Request $request)
+    {
+        $token = $request->query('token');
+
+        $accessToken = PersonalAccessToken::findToken($token);
+
+        if (!$accessToken) {
+            return response()->json(['message' => 'Invalid token'], 401);
+        }
+
+        $user = $accessToken->tokenable;
+        auth()->login($user);
+
+        return redirect('/dashboard');
+    }
+    
     public function redirect()
     {
         // pakai stateless() supaya token bisa lewat WebView tanpa session mismatch
