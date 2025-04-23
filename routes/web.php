@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GoalController;
@@ -39,5 +41,17 @@ Route::get('/', function () {
     // Route for updating progress of a goal
     Route::put('/goals/{goal}/update-progress', [GoalController::class, 'updateProgress'])->name('goals.updateProgress');
 });
+Route::get('/mobile/login', function (Request $request) {
+    $token = $request->query('token');
 
+    $accessToken = PersonalAccessToken::findToken($token);
+
+    if (! $accessToken) {
+        return redirect('/login')->with('error', 'Token tidak valid.');
+    }
+
+    Auth::login($accessToken->tokenable);
+
+    return redirect('/dashboard');
+});
 require __DIR__.'/auth.php';
