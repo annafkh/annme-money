@@ -4,7 +4,6 @@
 @section('content')
 <div class="px-4 py-6 bg-gradient-to-b from-indigo-50 via-white to-white min-h-screen">
 
-    <!-- Greeting & Avatar -->
     <div class="relative flex items-center justify-between mb-6">
         <div>
             <h1 class="text-xl font-bold text-gray-800">Halo, {{ Auth::user()->name }} 👋</h1>
@@ -52,7 +51,6 @@
         </button>
     </div>
 
- <!-- Ringkasan Pemasukan & Pengeluaran -->
  <div class="grid grid-cols-2 gap-4 mb-6">
     <!-- Pemasukan -->
     <a href="{{ route('income.index') }}"
